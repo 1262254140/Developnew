@@ -1,1 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>Library Management System</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <h2>📚 MyLibrary</h2>
+
+        <button class="nav active" data-page="dashboard">
+            Dashboard
+        </button>
+
+        <button class="nav" data-page="books">
+            Books
+        </button>
+
+        <button class="nav" data-page="members">
+            Members
+        </button>
+
+        <button class="nav" data-page="issues">
+            Issue / Return
+        </button>
+
+        <button class="nav" data-page="fines">
+            Fines
+        </button>
+
+        <button class="nav" data-page="reports">
+            Reports
+        </button>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+
+        <!-- HEADER -->
+        <header>
+
+            <div>
+                <h1 id="pageTitle">Dashboard</h1>
+
+                <p>
+                    Library Management System — Frontend Demo
+                </p>
+            </div>
+
+            <span class="badge">
+                No Database Connected
+            </span>
+
+        </header>
+
+
+        <!-- ================= DASHBOARD ================= -->
+
+        <section id="dashboard" class="page">
+
+            <div class="cards">
+
+                <div class="card">
+                    <span>Total Books</span>
+                    <strong id="totalBooks">0</strong>
+                </div>
+
+                <div class="card">
+                    <span>Available Copies</span>
+                    <strong id="availableBooks">0</strong>
+                </div>
+
+                <div class="card">
+                    <span>Members</span>
+                    <strong id="totalMembers">0</strong>
+                </div>
+
+                <div class="card">
+                    <span>Books Issued</span>
+                    <strong id="issuedBooks">0</strong>
+                </div>
+
+                <div class="card">
+                    <span>Unpaid Fines</span>
+                    <strong id="unpaidFines">₹0</strong>
+                </div>
+
+            </div>
+
+
+            <div class="panel">
+
+                <h2>Recent Activity</h2>
+
+                <div id="recentActivity"></div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= BOOKS ================= -->
+
+        <section id="books" class="page hidden">
+
+            <div class="toolbar">
+
+                <input
+                    id="bookSearch"
+                    placeholder="Search books..."
+                >
+
+                <button onclick="openBookForm()">
+                    + Add Book
+                </button>
+
+            </div>
+
+
+            <div class="panel">
+
+                <h2>Books</h2>
+
+                <div class="tableWrap">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>ID</th>
+                                <th>Title</th>
+                                <th>Author</th>
+                                <th>Category</th>
+                                <th>Total</th>
+                                <th>Available</th>
+                                <th>Status</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="booksTable"></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= MEMBERS ================= -->
+
+        <section id="members" class="page hidden">
+
+            <div class="toolbar">
+
+                <input
+                    id="memberSearch"
+                    placeholder="Search members..."
+                >
+
+                <button onclick="openMemberForm()">
+                    + Register Member
+                </button>
+
+            </div>
+
+
+            <div class="panel">
+
+                <h2>Members</h2>
+
+                <div class="tableWrap">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Books Issued</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="membersTable"></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= ISSUE / RETURN ================= -->
+
+        <section id="issues" class="page hidden">
+
+            <div class="toolbar">
+
+                <button onclick="openIssueForm()">
+                    + Issue Book
+                </button>
+
+                <button
+                    class="secondary"
+                    onclick="openReturnForm()"
+                >
+                    ↩ Return Book
+                </button>
+
+            </div>
+
+
+            <div class="panel">
+
+                <h2>Issue Records</h2>
+
+                <div class="tableWrap">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Issue ID</th>
+                                <th>Book</th>
+                                <th>Member</th>
+                                <th>Issue Date</th>
+                                <th>Due Date</th>
+                                <th>Return Date</th>
+                                <th>Status</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="issuesTable"></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= FINES ================= -->
+
+        <section id="fines" class="page hidden">
+
+            <div class="panel">
+
+                <h2>Fine Records</h2>
+
+                <div class="tableWrap">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Fine ID</th>
+                                <th>Issue ID</th>
+                                <th>Member</th>
+                                <th>Late Days</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="finesTable"></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= REPORTS ================= -->
+
+        <section id="reports" class="page hidden">
+
+            <div class="cards">
+
+                <div class="card">
+                    <span>Categories</span>
+                    <strong id="categoryCount">0</strong>
+                </div>
+
+                <div class="card">
+                    <span>Overdue Issues</span>
+                    <strong id="overdueCount">0</strong>
+                </div>
+
+                <div class="card">
+                    <span>Total Fine</span>
+                    <strong id="totalFine">₹0</strong>
+                </div>
+
+            </div>
+
+
+            <div class="panel">
+
+                <h2>Category Report</h2>
+
+                <div id="categoryReport"></div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- MODAL -->
+
+    <div id="modal" class="modal hidden">
+
+        <div class="modalBox">
+
+            <button
+                class="close"
+                onclick="closeModal()"
+            >
+                ×
+            </button>
+
+            <div id="modalContent"></div>
+
+        </div>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+                             </html>
